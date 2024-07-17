@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://rc8cfn7iyx65"]
+
+[ext_resource type="Script" path="res://gameplay.gd" id="1_b5fmi"]
+
+[sub_resource type="Gradient" id="Gradient_0ayf5"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.0909091, 0.961039)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t6j1t"]
+gradient = SubResource("Gradient_0ayf5")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.65, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qg41c"]
+radius = 3.0
+
+[sub_resource type="Gradient" id="Gradient_f1lka"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l4uxh"]
+gradient = SubResource("Gradient_f1lka")
+width = 8
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqdrx"]
+size = Vector2(8, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tutyn"]
+size = Vector2(8, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odjaa"]
+size = Vector2(24, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jm7eq"]
+size = Vector2(24, 120)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gnve"]
+
+[node name="gameplay" type="Node2D"]
+script = ExtResource("1_b5fmi")
+
+[node name="ball" type="CharacterBody2D" parent="."]
+position = Vector2(156, 132)
+
+[node name="Sprite2D" type="Sprite2D" parent="ball"]
+texture = SubResource("GradientTexture2D_t6j1t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ball"]
+shape = SubResource("CircleShape2D_qg41c")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(32, 132)
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+texture = SubResource("GradientTexture2D_l4uxh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("RectangleShape2D_nqdrx")
+
+[node name="ai" type="CharacterBody2D" parent="."]
+position = Vector2(288, 132)
+
+[node name="Sprite2D" type="Sprite2D" parent="ai"]
+texture = SubResource("GradientTexture2D_l4uxh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ai"]
+shape = SubResource("RectangleShape2D_tutyn")
+
+[node name="court" type="StaticBody2D" parent="."]
+
+[node name="collision_top_wall" type="CollisionPolygon2D" parent="court"]
+position = Vector2(0, 24)
+polygon = PackedVector2Array(0, 64, 8, 64, 8, 8, 312, 8, 312, 64, 320, 64, 320, 0, 0, 0)
+
+[node name="top_wall" type="Polygon2D" parent="court"]
+position = Vector2(0, 24)
+polygon = PackedVector2Array(0, 64, 8, 64, 8, 8, 312, 8, 312, 64, 320, 64, 320, 0, 0, 0)
+
+[node name="bottom_wall" type="Polygon2D" parent="court"]
+polygon = PackedVector2Array(0, 176, 8, 176, 8, 232, 312, 232, 312, 176, 320, 176, 320, 240, 0, 240)
+
+[node name="collision_bottom_wall" type="CollisionPolygon2D" parent="court"]
+polygon = PackedVector2Array(0, 176, 8, 176, 8, 232, 312, 232, 312, 176, 320, 176, 320, 240, 0, 240)
+
+[node name="player_area" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_area"]
+position = Vector2(-4, 132)
+shape = SubResource("RectangleShape2D_odjaa")
+
+[node name="ai_area" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ai_area"]
+position = Vector2(324, 132)
+shape = SubResource("RectangleShape2D_jm7eq")
+
+[node name="PanelContainer" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0gnve")
+
+[node name="play_btn" type="Button" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 80.0
+offset_right = 192.0
+offset_bottom = 112.0
+text = "Play"
+
+[node name="player_score" type="Label" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 16.0
+offset_right = 48.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+
+[node name="ai_score" type="Label" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 272.0
+offset_right = 304.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="player_area" to="." method="_on_player_loose"]
+[connection signal="body_entered" from="ai_area" to="." method="_on_ai_loose"]

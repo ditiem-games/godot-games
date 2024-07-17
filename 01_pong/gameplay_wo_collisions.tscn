@@ -1,0 +1,111 @@
+[gd_scene load_steps=11 format=3 uid="uid://dm2sw405fjv5w"]
+
+[ext_resource type="Script" path="res://gameplay_wo_collisions.gd" id="1_imamd"]
+
+[sub_resource type="Gradient" id="Gradient_0ayf5"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.0909091, 0.961039)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t6j1t"]
+gradient = SubResource("Gradient_0ayf5")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.65, 0)
+
+[sub_resource type="Gradient" id="Gradient_1pni5"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l4uxh"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_1pni5")
+width = 8
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqdrx"]
+size = Vector2(8, 32)
+
+[sub_resource type="Gradient" id="Gradient_f1lka"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ctv1u"]
+gradient = SubResource("Gradient_f1lka")
+width = 8
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tutyn"]
+size = Vector2(8, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gnve"]
+
+[node name="gameplay_wo_collisions" type="Node2D"]
+script = ExtResource("1_imamd")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(160, 0, 160, 240)
+width = 2.0
+default_color = Color(0.371622, 0.371622, 0.371622, 1)
+texture_mode = 1
+
+[node name="ball" type="Node2D" parent="."]
+position = Vector2(156, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="ball"]
+texture = SubResource("GradientTexture2D_t6j1t")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(32, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+texture = SubResource("GradientTexture2D_l4uxh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("RectangleShape2D_nqdrx")
+
+[node name="ai" type="CharacterBody2D" parent="."]
+position = Vector2(288, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="ai"]
+texture = SubResource("GradientTexture2D_ctv1u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ai"]
+shape = SubResource("RectangleShape2D_tutyn")
+
+[node name="PanelContainer" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0gnve")
+
+[node name="play_btn" type="Button" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 80.0
+offset_right = 192.0
+offset_bottom = 112.0
+text = "Play"
+
+[node name="player_score" type="Label" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 16.0
+offset_right = 48.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+
+[node name="ai_score" type="Label" parent="PanelContainer"]
+layout_mode = 2
+offset_left = 272.0
+offset_right = 304.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 1
