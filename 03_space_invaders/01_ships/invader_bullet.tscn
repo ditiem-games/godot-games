@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://det0drpl8tvvr"]
+
+[ext_resource type="PackedScene" uid="uid://btrxivou0b5q3" path="res://01_ships/player_bullet.tscn" id="1_2seeh"]
+
+[node name="invader_bullet" instance=ExtResource("1_2seeh")]
+direction = 50
+
+[node name="Line2D" parent="." index="0"]
+default_color = Color(1, 1, 1, 1)
+
+[node name="Area2D" parent="." index="1"]
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, -3)
+
+[node name="destruction_polygon" parent="." index="2"]
+polygon = PackedVector2Array(-1, -4, -2, -6, 0, -8, 2, -6, 1, -4, 2, -2, 0, 0, -2, -2)

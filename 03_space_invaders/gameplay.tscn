@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://dv82nvljdctkh"]
+
+[ext_resource type="Script" path="res://gameplay.gd" id="1_gh4a6"]
+[ext_resource type="FontFile" uid="uid://d1inwqn781g5k" path="res://00_assets/VT323-Regular.ttf" id="1_vjxu0"]
+[ext_resource type="Script" path="res://ui.gd" id="2_3s5s1"]
+[ext_resource type="PackedScene" uid="uid://dxk7xw7l5bw88" path="res://player.tscn" id="3_wgdqk"]
+[ext_resource type="Script" path="res://invaders.gd" id="5_142x3"]
+[ext_resource type="PackedScene" uid="uid://dmkq5uksw65he" path="res://wall.tscn" id="5_dt6d5"]
+
+[sub_resource type="Theme" id="Theme_by8ey"]
+Label/font_sizes/font_size = 14
+Label/fonts/font = ExtResource("1_vjxu0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5y6d"]
+size = Vector2(224, 2)
+
+[node name="gameplay" type="Node2D"]
+script = ExtResource("1_gh4a6")
+metadata/_edit_vertical_guides_ = [24.0, 10.0, 214.0]
+metadata/_edit_horizontal_guides_ = [24.0, 10.0, 214.0]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 225.0
+offset_bottom = 256.0
+theme = SubResource("Theme_by8ey")
+script = ExtResource("2_3s5s1")
+
+[node name="score_title" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 53.0
+offset_bottom = 14.0
+text = "Score"
+
+[node name="score_lbl" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 16.0
+offset_right = 51.0
+offset_bottom = 31.0
+text = "0000"
+
+[node name="lifes" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Control/lifes"]
+layout_mode = 2
+text = "3"
+justification_flags = 0
+
+[node name="player" parent="." instance=ExtResource("3_wgdqk")]
+position = Vector2(22, 229)
+
+[node name="invaders" type="Node2D" parent="."]
+script = ExtResource("5_142x3")
+
+[node name="defense" type="Node2D" parent="."]
+
+[node name="wall_1" parent="defense" instance=ExtResource("5_dt6d5")]
+position = Vector2(28, 193)
+
+[node name="wall_2" parent="defense" instance=ExtResource("5_dt6d5")]
+position = Vector2(76, 193)
+
+[node name="wall_3" parent="defense" instance=ExtResource("5_dt6d5")]
+position = Vector2(124, 193)
+
+[node name="wall_4" parent="defense" instance=ExtResource("5_dt6d5")]
+position = Vector2(172, 193)
+
+[node name="Line2D" type="Line2D" parent="defense"]
+position = Vector2(0, -5)
+points = PackedVector2Array(0, 247.5, 224, 247.5)
+width = 1.0
+default_color = Color(0.0901961, 0.772549, 0.0823529, 1)
+
+[node name="Area2D" type="Area2D" parent="defense"]
+position = Vector2(0, 242)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="defense/Area2D"]
+position = Vector2(112, 1)
+shape = SubResource("RectangleShape2D_h5y6d")

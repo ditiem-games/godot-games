@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cov8c1qy27ch4"]
+
+[ext_resource type="PackedScene" uid="uid://covv3nl3sdcde" path="res://01_ships/invader_1.tscn" id="1_jvyjo"]
+[ext_resource type="Texture2D" uid="uid://d2rapyfjgs46x" path="res://00_assets/invader_2.png" id="2_vfrs6"]
+
+[node name="invader_2" instance=ExtResource("1_jvyjo")]
+texture = ExtResource("2_vfrs6")
+score = 20

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfxhilernnbp"]
+
+[ext_resource type="Texture2D" uid="uid://v0m3vavfkf8f" path="res://00_assets/ship.png" id="1_hqr5d"]
+
+[node name="ship_life" type="TextureRect"]
+texture_filter = 1
+texture = ExtResource("1_hqr5d")
+stretch_mode = 3
