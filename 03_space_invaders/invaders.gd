@@ -11,7 +11,6 @@ const INVADER_3 = preload("res://01_ships/invader_3.tscn")
 func _ready ( ) -> void:
 	restart( )
 
-var num_cols: int = 11
 var max_offset: int = 0
 
 func restart ( ):
@@ -22,7 +21,6 @@ func restart ( ):
 	
 	rows = []
 	max_offset = 0
-	num_cols = 11
 	create_row( INVADER_1 )
 	create_row( INVADER_2 )
 	create_row( INVADER_2 )
@@ -33,24 +31,39 @@ func restart ( ):
 var attack_line = []
 func compute_attack_line ( ):
 	attack_line = []
-	attack_line.resize( num_cols )
-	attack_line.fill( null )
 	
-	for y in range( rows.size() -1, 0, -1 ):
-		for x in range( 0, num_cols ):
-			if !attack_line[ x ] and rows[ y ][ x ]:
-				attack_line[ x ] = rows[ y ][ x ]
-				
-		if !attack_line.has( null ):
-			break
+	if rows.size( ) > 0:
+		attack_line.resize( rows[ 0 ].size( ) )
+		attack_line.fill( null )
+		
+		for y in range( rows.size() - 1, -1, -1 ):
+			for x in range( 0, rows[ 0 ].size( ) ):
+				if !attack_line[ x ] and rows[ y ][ x ]:
+					attack_line[ x ] = rows[ y ][ x ]
+			
+			if !attack_line.has( null ):
+				break
+	rm_null_columns( )
 
-	#  need to remove all columns of attactline that are null
+func rm_null_columns ( ):
+	var index = attack_line.find( null )
 	
+	while index >= 0:
+		attack_line.remove_at( index )
+		for r in rows:
+			r.remove_at( index )
+		index = attack_line.find( null )
+	
+	# TODO: rm all null rows
+	
+	max_offset = attack_line.size( ) * rows.size( )
 
 const ROW_HEIGHT = 16
 const COL_WIDTH  = 16
+const START_NUM_COLS = 11
 
 func create_row ( invader ):
+	var num_cols = START_NUM_COLS
 	max_offset += num_cols
 	var y = (3 + rows.size()) * ROW_HEIGHT
 	var r = []
@@ -73,7 +86,7 @@ func on_invader_destroyed ( invader: invader_c ):
 			r[ col ] = null
 			
 			if attack_line[ col ] == invader:
-				compute_attack_line( )
+				compute_attack_line.call_deferred( )
 
 	freeze_time = .150
 	
@@ -113,7 +126,7 @@ var offset: int = 0
 func move_invaders ( ):
 	var n = 0
 	var next_direction = direction
-
+	var num_cols = attack_line.size( )
 #	for i in range( 0, max_offset ):
 	while n < MAX_ANI:
 		var y_x: int = max_offset - offset - 1
@@ -146,6 +159,7 @@ func move_invaders ( ):
 func reached_limit ( ) -> bool:
 	if !attack_line.size( ):
 		return false
+	var num_cols = attack_line.size( )
 
 	var MAX_WIDTH = engine_c.SCREEN_WIDTH - ( (num_cols - 1) * COL_WIDTH + 2 * engine_c.MARGIN )
 	

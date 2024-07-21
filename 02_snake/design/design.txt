@@ -1,0 +1,6 @@
+- What is there is an algorithm that compute the minimal number of steps?
+- What is you can eat other things that are no numbers and:
+  - makes you go faster / slower
+  - invert cursor actions
+  - allows you to overlap the snake for N movements
+  - makes you blind

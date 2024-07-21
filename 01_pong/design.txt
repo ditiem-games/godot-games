@@ -1,0 +1,7 @@
+- The paddle cannot is slower than the ball
+- The ball hits on paddle "coners" changes the speed
+- The ball also changes angle
+- Is this random or skillful?
+- Are they balls with different speed or bounce properties?
+- Can you apply some effect to the paddle like strength or slightly rotate the paddle?
+- How could you do a competent AI to make the game funny?
