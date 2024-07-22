@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfc2cv287mq72"]
+
+[ext_resource type="Script" path="res://02_enemies/health_bar.gd" id="1_64ngx"]
+
+[sub_resource type="Gradient" id="Gradient_nwgmm"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pyddq"]
+gradient = SubResource("Gradient_nwgmm")
+height = 4
+
+[sub_resource type="Gradient" id="Gradient_470gq"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xpx53"]
+gradient = SubResource("Gradient_470gq")
+height = 4
+
+[node name="health_bar" type="TextureProgressBar"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 23.0
+texture_under = SubResource("GradientTexture2D_pyddq")
+texture_progress = SubResource("GradientTexture2D_xpx53")
+script = ExtResource("1_64ngx")

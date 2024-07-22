@@ -4,3 +4,7 @@
   - invert cursor actions
   - allows you to overlap the snake for N movements
   - makes you blind
+- What if there is more than one snakes?
+- What if there are enemies?
+  - are they predictable?
+  - can you eat them if you are bigger than them?

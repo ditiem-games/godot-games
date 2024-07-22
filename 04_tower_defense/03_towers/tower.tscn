@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8bl75k3ougc6"]
+
+[ext_resource type="Texture2D" uid="uid://b4pn5egf3epj6" path="res://00_assets/towerDefense_tilesheet.png" id="1_05lxw"]
+[ext_resource type="Script" path="res://03_towers/tower.gd" id="1_w6n25"]
+[ext_resource type="PackedScene" uid="uid://bfc2cv287mq72" path="res://02_enemies/health_bar.tscn" id="3_wsm2v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j5tb"]
+atlas = ExtResource("1_05lxw")
+region = Rect2(1216, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aspyt"]
+atlas = ExtResource("1_05lxw")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rg14j"]
+radius = 128.0
+
+[node name="tower" type="Node2D"]
+texture_filter = 1
+position = Vector2(393, 437)
+script = ExtResource("1_w6n25")
+
+[node name="tower" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_2j5tb")
+
+[node name="shooting_point" type="Node2D" parent="tower"]
+position = Vector2(0, -30)
+
+[node name="state" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_aspyt")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="health_bar" parent="Control" instance=ExtResource("3_wsm2v")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 68.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="shoot_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shoot_area"]
+shape = SubResource("CircleShape2D_rg14j")

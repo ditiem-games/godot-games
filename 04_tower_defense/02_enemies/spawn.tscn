@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duyjar2srmo2a"]
+
+[ext_resource type="Script" path="res://02_enemies/spawn.gd" id="1_cmxfs"]
+
+[node name="spawn" type="Node2D"]
+script = ExtResource("1_cmxfs")

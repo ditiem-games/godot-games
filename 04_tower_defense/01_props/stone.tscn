@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfxenbis0glx1"]
+
+[ext_resource type="Texture2D" uid="uid://b4pn5egf3epj6" path="res://00_assets/towerDefense_tilesheet.png" id="1_15il8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18mb0"]
+atlas = ExtResource("1_15il8")
+region = Rect2(1280, 320, 64, 64)
+
+[node name="tree" type="Sprite2D"]
+texture = SubResource("AtlasTexture_18mb0")
